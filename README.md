@@ -207,7 +207,7 @@ In the baseline model, the Linear Regression model was only able to explain 0.3%
 
 ## Fairness Anlaysis
 
-#### Permutation Test Setup
+### Permutation Test Setup
 I will perform a permtuation test to determine if the model can predict the average ratings of recipes that were published **before year 2009** as well the average rating of recipes published **after year 2009**.
 
 **Null Hypothesis**: Our model is fair. It's r^2 score for recipes published before and after 2009 are roughly the same, and any difference is due to random chance.  
@@ -233,7 +233,7 @@ The dataframe that I will perform the permutation on looks like this.
 |  5       |     4.36744 | True          |
 |  4       |     4.61241 | True          |
 
-#### Permutation Test Result
+### Permutation Test Result
 
 <iframe src = 'assets/perm_test.html' width = 800 height = 400 frameborder = 0> </iframe>
 
