@@ -132,7 +132,7 @@ This word is a very poor model because the r^2 is very close to 0. This means th
     3. sugar could also be included because it has relativly low correlation with other columns besides carbs
     4. To simplify the mode, we can probably drop the other nutrition labels
 
-<iframe src = 'assets/heatmap.png' width = 585 height = 488 frameborder = 0> </iframe>
+<iframe src = 'assets/heatmap.png' width = 600 height = 505 frameborder = 0> </iframe>
 
 - Incorporating data from the interactions dataset
     1. Create three columns, each corresponding to the number of good, neutral, and bad reviews for a recipe
