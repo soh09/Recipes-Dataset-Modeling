@@ -98,7 +98,7 @@ After data cleaning, the two dataframe looks like this.
 
 ## The Baseline Model
 The mode will be as described below.
-
+- Model Type: Linear Regression
 - Features: 10 quantitative/numerical features
     1. minutes
     2. n_steps, n_ingredients
