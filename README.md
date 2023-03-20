@@ -67,9 +67,7 @@ After data cleaning, the two dataframe looks like this.
 
 ```python
 recipes.shape
-```
-```python
-(9707, 13)
+>>> (9707, 13)
 ```
 ```python
 recipes.head(2)
@@ -81,9 +79,7 @@ recipes.head(2)
 
 ```python
 interactions.shape
-```
-```python
-(375987, 3)
+>>> (375987, 3)
 ```
 ```python
 interactions.head(2)
