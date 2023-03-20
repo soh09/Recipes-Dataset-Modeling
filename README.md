@@ -125,20 +125,20 @@ This word is a very poor model because the r^2 is very close to 0. This means th
 ## Final Model
 
 Findings and Possible Improvements
-- The nutrition columns
+- The nutrition columns (heatmap can be seen below)
     1. calories has high correlation with total fat, saturated fats, and carbs. Perhaps, if we include calories, saturated fats and carbs column are redundant.
     2. sodium has a low correlation with all columns
     3. sugar could also be included because it has relativly low correlation with other columns besides carbs
     4. To simplify the mode, we can probably drop the other nutrition labels
 
-<iframe src = 'assests/heatmap.png' width = 800 height = 800 frameborder = 0> </iframe>
+<iframe src = 'assets/heatmap.png' width = 800 height = 800 frameborder = 0> </iframe>
 
 - Incorporating data from the interactions dataset
     1. Create three columns, each corresponding to the number of good, neutral, and bad reviews for a recipe
         - I will derive this feature by performing sentiment analysis on the reviews. The two aforementioned columns will contain the number of positive and negative reviews, respectively.
 
 Changes I am making between the baseline and final mode
-1. Of the nutrition columns, I will only keep calories, sodium, and sugar. This is because the other nutrition columns were highly correlated to other columns. By dropping these columns, we can prevent multicolinarity. While this change may not necessarily improve the R^2 score of the mode, it will reducing the dimensionality and make the model less complex. This change will most likely not negatively impact the R^2 at the very least.
+1. Of the nutrition columns, I will only keep `calories`, `sodium`, and `sugar`. This is because the other nutrition columns were highly correlated to other columns. By dropping these columns, we can prevent multicolinarity. While this change may not necessarily improve the R^2 score of the mode, it will reducing the dimensionality and make the model less complex. This change will most likely not negatively impact the R^2 at the very least.
 2. I will add three columns, where each encode the number of good, neutral, and bad reviews for a recipe. This should provide more information to the model, and help it make better predictions about the average rating of the recipe. I think these features would improve the accuracy because the review comment should overall reflect the rating that that the individual provided the recipe with. Average rating is a number that is derived from the ratings that these individuals have provided, so the number of good, neutral, and bad reviews should serve as a good indicator for how highly rated a recipe is.
 
 Models
