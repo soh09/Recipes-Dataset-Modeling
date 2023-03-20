@@ -6,7 +6,7 @@ by So Hirota (hirotaso92602@gmail.com)
 
 Published 3/20/2023
 
-Part 1 (EDA) can be found here: https://soh09.github.io/Recipes-Dataset-Analysis/
+Part 1 (EDA) can be found <a href="https://soh09.github.io/Recipes-Dataset-Analysis/">here</a>here!
 
 ------
 
@@ -94,7 +94,7 @@ After data cleaning, the two dataframe looks like this.
 |       79222 |        5 | Along with the onions we added in a square of salt pork, |
 |       79222 |        4 | I made this last nite and it was pretty good.  I will    |
 
-
+------
 
 ## The Baseline Model
 The mode will be as described below.
@@ -121,6 +121,7 @@ R^2 score is consistently close to 0.
 
 This word is a very poor model because the r^2 is very close to 0. This means the model is unable to explain any of the variance present in the data. I think that this model has a very low R^2 score because the features that are fed into it are not correlated the rating very well. I will try to transform columns to create these relationships for the final model.
 
+------
 
 ## Final Model
 
@@ -158,6 +159,7 @@ This word is a very poor model because the r^2 is very close to 0. This means th
     - Hyperparameters
         - - n_neighbors, p (how distance is calculated)
         - I chose these hyperparamters because n_neighbors will affect the ability for the algorithm to find "clusters". p changes the way distance is calculated between the points (euclidean vs manhattan distance), which also directly affects where the algorithm will make the prediction.
+        - Method: GridSearchCV
     - Result
         - **Best R^2 Score: 0.0199**
         - Best paramters: `{'n_neighbors': 64, 'p': 1}`
@@ -168,8 +170,58 @@ This word is a very poor model because the r^2 is very close to 0. This means th
     - Hyperparamters
         - depth, mininimum sample splits, scoring criterion
         - I chose these criteria because depth and minimum sample split can prevent overfitting, which is a common issue with decision trees. Scoring criterion can also influence the way the tree finds the optimal point to branch out, so I included it as a hyperparamter.
+        - Method: GridSearchCV
     - Result
         - **Best R^2 Score: 0.537**
         - Best paramters: `{'criterion': 'friedman_mse', 'max_depth': 5, 'min_samples_split': 50}`
 
+### Best Model
 
+#### Final Pipeline
+
+```python
+col_trans = ColumnTransformer(
+    transformers = [
+        ('split_sentiment', FunctionTransformer(split_sentiment), ['review']),
+        ('root_4', FunctionTransformer(func = reduce, kw_args={'n': 0.25}), ['minutes'])
+    ],
+    remainder = 'passthrough'
+)
+final_model = Pipeline(
+    [
+        ('transformer', col_trans),
+        ('dec_tree', DecisionTreeRegressor(criterion = 'friedman_mse', max_depth = 5,  min_samples_split = 50))
+    ]
+)
+```
+```python
+>>> final_model.fit(X_train, y_train)
+>>> final_model.score(X_test, y_test)
+0.5373138645841257
+```
+
+For the final model, I used a Decision Tree Regressor with a max depth of 5, a minimum sample split size of 50, and the friedman mse scoring method. I performed a GridSearch that took over 10 minutes to find these optimal paramters. This mode represents a leap forward in terms of the baseline model, since I am using R^2 scored as the measure of "goodness" of a model for this project.
+In the baseline model, the Linear Regression model was only able to explain 0.3% of the total variance in the response variable, whilst this model can explain about 54% of the variace present in the response variable. In practice, this means that Decision Tree Regressor model is way better at making predictions than the Linear Regression model.
+
+------
+
+## Fairness Anlaysis
+
+#### Permutation Test Setup
+I will perform a permtuation test to determine if the model can predict the average ratings of recipes that were published before year 2009 as well the average rating of recipes published after year 2009.
+
+**Null Hypothesis**: Our model is fair. It's r^2 score for recipes published before and after 2009 are roughly the same, and any difference is due to random chance.
+**Alternative Hypothesis**: Our model is NOT fair. It's r^2 score is higher for recipes that were published after 2009 than the r^2 score for recipes published before 2009.
+
+Cutoff date: 2009
+Groups: Recipes published before and after 2009
+Test statistic:  r^2 score for recipes after 2009 - r^2 score for recipes before 2009
+Significance leve: 0.05
+Observed Statistic: 0.1420083050836909
+
+#### Permutation Test Result
+
+<iframe src = 'assets/perm_test.png' width = 800 height = 800 frameborder = 0> </iframe>
+
+With a p-value of 0.0, I will reject the null hypothesis. It is likely that our model is unfair, and has a higher r^2 score for predicting recipes that were submitted after 2009, compared to recipes published before 2009. 
+We can infer from the p-value of 0 that the model is significantly better at predicting average ratings for recipes that were published afer 2009. A possible reason for this could be due to the sentiment classifer I used being trained on tweets from 2012 to 2019. Perhaps internet "lingo" has changed overtime, and so the sentiment classifer was able to make more accurate predictions about the sentiment of the review comment for recipes created after 2009 than comments from before 2009.
