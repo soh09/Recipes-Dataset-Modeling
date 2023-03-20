@@ -6,7 +6,7 @@ by So Hirota (hirotaso92602@gmail.com)
 
 Published 3/20/2023
 
-Part 1 (EDA) can be found <a href="https://soh09.github.io/Recipes-Dataset-Analysis/">here</a>here!
+Part 1 (EDA) can be found <a href="https://soh09.github.io/Recipes-Dataset-Analysis/">here</a>!
 
 ------
 
