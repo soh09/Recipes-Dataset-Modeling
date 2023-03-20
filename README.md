@@ -124,7 +124,7 @@ This word is a very poor model because the r^2 is very close to 0. This means th
 
 ## Final Model
 
-Findings and Possible Improvements
+#### Findings and Possible Improvements
 - The nutrition columns (heatmap can be seen below)
     1. calories has high correlation with total fat, saturated fats, and carbs. Perhaps, if we include calories, saturated fats and carbs column are redundant.
     2. sodium has a low correlation with all columns
@@ -137,18 +137,39 @@ Findings and Possible Improvements
     1. Create three columns, each corresponding to the number of good, neutral, and bad reviews for a recipe
         - I will derive this feature by performing sentiment analysis on the reviews. The two aforementioned columns will contain the number of positive and negative reviews, respectively.
 
-Changes I am making between the baseline and final mode
+#### Changes
 1. Of the nutrition columns, I will only keep `calories`, `sodium`, and `sugar`. This is because the other nutrition columns were highly correlated to other columns. By dropping these columns, we can prevent multicolinarity. While this change may not necessarily improve the R^2 score of the mode, it will reducing the dimensionality and make the model less complex. This change will most likely not negatively impact the R^2 at the very least.
 2. I will add three columns, where each encode the number of good, neutral, and bad reviews for a recipe. This should provide more information to the model, and help it make better predictions about the average rating of the recipe. I think these features would improve the accuracy because the review comment should overall reflect the rating that that the individual provided the recipe with. Average rating is a number that is derived from the ratings that these individuals have provided, so the number of good, neutral, and bad reviews should serve as a good indicator for how highly rated a recipe is.
 
-Models
+### Models
 1. Linear Regression model
     - Rationale: if there are any simple linear relationships that the model can pick up on, then the R^2 score could be pretty high. The sentiment analysis columns are good candidates for linear relationships.
-    - Hyperparamters: combinations of standarizing minutes, n_ingredients, n_steps, and calories
+    - Hyperparamters
+        - Since Liner Regression models don't have hyperparamters like the other models, I will try differnt combinations of columns to standardize. 
+        - I picked `['minutes', 'n_steps', 'n_ingredients']` for standardization because these values have the most outliers, compared to other columns, and therefore think that standraizing would be the most beneficial.
+        - The function defined below take a list of columns and tries every combinations of transforming columns using the StandardScaler transformer, and returns a dictionary containing the R^2 score for each combination.
+    - Results
+        - **Best R^2 score: 0.347**
+            - Note: all combinations had the exact same R^2 score
+        - Different combinations of standarized columns does not change the R^2 score of the linear model at all. This seems like an obvious conclusion because standardization is just a linear transformation, so it would just change the weight of the column, but would not actually change the prediction at all.
+
 2. K-Nearest Neighbor Regression model
     - Rationale: since rating is a categorical variable in some sense, then it could make sense to use a KNN algorithm to figure out the "clusters" (which are the rating categories, like 1 star, 2 stars, etc). This could maybe lead to accurate predictions.
-    - hyperparamters: n_neighbors, p (how distance is calculated)
+    - Hyperparameters
+        - - n_neighbors, p (how distance is calculated)
+        - I chose these hyperparamters because n_neighbors will affect the ability for the algorithm to find "clusters". p changes the way distance is calculated between the points (euclidean vs manhattan distance), which also directly affects where the algorithm will make the prediction.
+    - Result
+        - **Best R^2 Score: 0.0199**
+        - Best paramters: `{'n_neighbors': 64, 'p': 1}`
+
+
 3. Decision Tree Regressor model
     - Rationale: Individuals giving the recipe a ratings is a decision that a user has to make, so perhaps a decision tree model will be able to capture that nuance well.
-    - hyperparameters: depth, mininimum sample splits, scoring criterion
+    - Hyperparamters
+        - depth, mininimum sample splits, scoring criterion
+        - I chose these criteria because depth and minimum sample split can prevent overfitting, which is a common issue with decision trees. Scoring criterion can also influence the way the tree finds the optimal point to branch out, so I included it as a hyperparamter.
+    - Result
+        - **Best R^2 Score: 0.537**
+        - Best paramters: `{'criterion': 'friedman_mse', 'max_depth': 5, 'min_samples_split': 50}`
+
 
