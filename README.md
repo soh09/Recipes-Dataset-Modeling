@@ -238,5 +238,4 @@ The dataframe that I will perform the permutation on looks like this.
 <iframe src = 'assets/perm_test.html' width = 800 height = 400 frameborder = 0> </iframe>
 
 With a **p-value of 0.0**, I will **reject the null hypothesis**. It is likely that our **model is unfair**, and has a higher r^2 score for predicting recipes that were submitted after 2009, compared to recipes published before 2009.  
-Disucssion
 - We can infer from the p-value of 0 that the model is significantly better at predicting average ratings for recipes that were published afer 2009. A possible reason for this could be due to the sentiment classifer I used being trained on tweets from 2012 to 2019. Perhaps internet "lingo" has changed overtime, and so the sentiment classifer was able to make more accurate predictions about the sentiment of the review comment for recipes created after 2009 than comments from before 2009.
