@@ -213,15 +213,16 @@ I will perform a permtuation test to determine if the model can predict the aver
 **Null Hypothesis**: Our model is fair. It's r^2 score for recipes published before and after 2009 are roughly the same, and any difference is due to random chance.  
 **Alternative Hypothesis**: Our model is NOT fair. It's r^2 score is higher for recipes that were published after 2009 than the r^2 score for recipes published before 2009.  
 
-Cutoff date: 2009  
-Groups: Recipes published before and after 2009  
-Test statistic:  r^2 score for recipes after 2009 - r^2 score for recipes before 2009  
-Significance leve: 0.05  
-Observed Statistic: 0.1420083050836909  
+Parameters:
+- Cutoff date: 2009  
+- Groups: Recipes published before and after 2009  
+- Test statistic:  r^2 score for recipes after 2009 - r^2 score for recipes before 2009  
+- Significance leve: 0.05  
+- Observed Statistic: 0.1420083050836909  
 
 #### Permutation Test Result
 
 <iframe src = 'assets/perm_test.png' width = 800 height = 800 frameborder = 0> </iframe>
 
-With a p-value of 0.0, I will reject the null hypothesis. It is likely that our model is unfair, and has a higher r^2 score for predicting recipes that were submitted after 2009, compared to recipes published before 2009. 
+With a p-value of 0.0, I will reject the null hypothesis. It is likely that our model is unfair, and has a higher r^2 score for predicting recipes that were submitted after 2009, compared to recipes published before 2009.  
 We can infer from the p-value of 0 that the model is significantly better at predicting average ratings for recipes that were published afer 2009. A possible reason for this could be due to the sentiment classifer I used being trained on tweets from 2012 to 2019. Perhaps internet "lingo" has changed overtime, and so the sentiment classifer was able to make more accurate predictions about the sentiment of the review comment for recipes created after 2009 than comments from before 2009.
