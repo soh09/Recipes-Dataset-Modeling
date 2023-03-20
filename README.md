@@ -73,7 +73,7 @@ After data cleaning, the two dataframe looks like this.
 recipes.head(2)
 ```
 | id     | minutes | tags                   | n_steps | n_ingredients | calories (#) | total fat (%) | sugar (%) | sodium (%) | protein (%) | sat fats (%) | carbs (%) | rating      | review                    |
-|--:-----|--:------|-:----------------------|--:------|--:------------|--:-----------|--:------------|-:---------|-:----------|-:-----------|-:------------|-:---------|-:-----------|--:------------------------|
+|:-------|:--------:------------------------|:--------|:--------------|:-------------|:--------------|:----------|:-----------|:------------|:-------------|:----------|:------------|:--------------------------|
 | 333281 | 75      | ['time-to-make', 'cours| 6       | 9             | 1582.6	     |   88.0        |  402.0    |  27.0      |  96.0       |  156.0       |  73.0     |  4.400000   |[Loved it and will make    |
 | 453467 | 5       | ['15-minutes-or-less', | 2       | 11            | 94.7         |   0.0         |  70.0     |  0.0       |  2.0        |  0.0         |  7.0      |  4.800000   |[Love the anise and orange |
 
@@ -85,7 +85,7 @@ recipes.head(2)
 interactions.head(2)
 ```
 |    |   recipe_id |   rating | review                                                   |
-|---:|------------:|---------:|:-------------------------------------------------------- |
+|---:|------------:|---------:|:---------------------------------------------------------|
 |  0 |       79222 |        4 | Oh, how wonderful!  I doubled the crab, and added some   |
 |  1 |       79222 |        5 | Along with the onions we added in a square of salt pork, |
 |  2 |       79222 |        4 | I made this last nite and it was pretty good.  I will    |
