@@ -14,6 +14,13 @@ Part 1 (EDA) can be found here: https://soh09.github.io/Recipes-Dataset-Analysis
 
 In Part 1 of this project, I performed EDA in addition to some permutation and hypothesis testing on the recipes and interactions dataset. In this part of the project, I will further explore the data and create a machine learning model to predict the average rating of a recipe.
 
+#### Can we predict the average rating of a recipe?
+
+To answer this question,
+1. I'll make a **regression** model
+2. This regression model will predict the average rating of a certain recipe, given a few features from the recipes and interactions dataset.
+3. This regression model will be evaluted using the **R^2** score. I chose this metric because R^2 is an easily interpretable metric that tells me the proportion (from 0.0 to 1.0) of variation in the data that the model is able to explain. 1.0 would means that model's predictions are identitcal to actual response variable. 
+
 ### Recap: The Data
 The recipes dataset contains two .csv files: the RAW_recpies and the RAW_interactions dataset.
 
@@ -45,13 +52,6 @@ RAW_interactions.csv contains `731927 rows` and `5 columns`. The rows represent 
 | `review` | the text review of the recipe |
 
 ### The Question
-
-#### Can we predict the average rating of a recipe?
-
-To answer this question,
-1. I'll make a **regression** model
-2. This regression model will predict the average rating of a certain recipe, given a few features from the recipes and interactions dataset.
-3. This regression model will be evaluted using the **R^2** score. I chose this metric because R^2 is an easily interpretable metric that tells me the proportion (from 0.0 to 1.0) of variation in the data that the model is able to explain. 1.0 would means that model's predictions are identitcal to actual response variable. 
 
 ### Preparing the Data
 - Recipes data
@@ -94,7 +94,61 @@ After data cleaning, the two dataframe looks like this.
 |       79222 |        5 | Along with the onions we added in a square of salt pork, |
 |       79222 |        4 | I made this last nite and it was pretty good.  I will    |
 
+
+
 ## The Baseline Model
+The mode will be as described below.
+
+- Features: 10 quantitative/numerical features
+    1. minutes
+    2. n_steps, n_ingredients
+    3. all of the nutrition columns
+- Response variable: the rating column
+- No encoding is necessary at this stage, since all the input features will be numerical
+- Transformation
+    - I won't use any transformations at this point
+
+In order to test the model's capacity to generalize to unseen data, I performed a train test split and trained the model only on the training data.
+
+```python
+>>> model.score(X_test, y_test)
+0.0038402175285358053
+```
+
+### Baseline Model: Result
+
+R^2 score is consistently close to 0.
+
+This word is a very poor model because the r^2 is very close to 0. This means the model is unable to explain any of the variance present in the data. I think that this model has a very low R^2 score because the features that are fed into it are not correlated the rating very well. I will try to transform columns to create these relationships for the final model.
 
 
+## Final Model
+
+Findings and Possible Improvements
+- The nutrition columns
+    1. calories has high correlation with total fat, saturated fats, and carbs. Perhaps, if we include calories, saturated fats and carbs column are redundant.
+    2. sodium has a low correlation with all columns
+    3. sugar could also be included because it has relativly low correlation with other columns besides carbs
+    4. To simplify the mode, we can probably drop the other nutrition labels
+
+<iframe src = 'assests/heatmap.png' width = 800 height = 800 frameborder = 0> </iframe>
+
+- Incorporating data from the interactions dataset
+    1. Create three columns, each corresponding to the number of good, neutral, and bad reviews for a recipe
+        - I will derive this feature by performing sentiment analysis on the reviews. The two aforementioned columns will contain the number of positive and negative reviews, respectively.
+
+Changes I am making between the baseline and final mode
+1. Of the nutrition columns, I will only keep calories, sodium, and sugar. This is because the other nutrition columns were highly correlated to other columns. By dropping these columns, we can prevent multicolinarity. While this change may not necessarily improve the R^2 score of the mode, it will reducing the dimensionality and make the model less complex. This change will most likely not negatively impact the R^2 at the very least.
+2. I will add three columns, where each encode the number of good, neutral, and bad reviews for a recipe. This should provide more information to the model, and help it make better predictions about the average rating of the recipe. I think these features would improve the accuracy because the review comment should overall reflect the rating that that the individual provided the recipe with. Average rating is a number that is derived from the ratings that these individuals have provided, so the number of good, neutral, and bad reviews should serve as a good indicator for how highly rated a recipe is.
+
+Models
+1. Linear Regression model
+    - Rationale: if there are any simple linear relationships that the model can pick up on, then the R^2 score could be pretty high. The sentiment analysis columns are good candidates for linear relationships.
+    - Hyperparamters: combinations of standarizing minutes, n_ingredients, n_steps, and calories
+2. K-Nearest Neighbor Regression model
+    - Rationale: since rating is a categorical variable in some sense, then it could make sense to use a KNN algorithm to figure out the "clusters" (which are the rating categories, like 1 star, 2 stars, etc). This could maybe lead to accurate predictions.
+    - hyperparamters: n_neighbors, p (how distance is calculated)
+3. Decision Tree Regressor model
+    - Rationale: Individuals giving the recipe a ratings is a decision that a user has to make, so perhaps a decision tree model will be able to capture that nuance well.
+    - hyperparameters: depth, mininimum sample splits, scoring criterion
 
