@@ -132,7 +132,7 @@ This word is a very poor model because the r^2 is very close to 0. This means th
     3. sugar could also be included because it has relativly low correlation with other columns besides carbs
     4. To simplify the mode, we can probably drop the other nutrition labels
 
-<iframe src = 'assets/heatmap.png' width = 800 height = 800 frameborder = 0> </iframe>
+<iframe src = 'assets/heatmap.png' width = 585 height = 488 frameborder = 0> </iframe>
 
 - Incorporating data from the interactions dataset
     1. Create three columns, each corresponding to the number of good, neutral, and bad reviews for a recipe
@@ -222,7 +222,7 @@ Parameters:
 
 #### Permutation Test Result
 
-<iframe src = 'assets/perm_test.png' width = 585 height = 488 frameborder = 0> </iframe>
+<iframe src = 'assets/perm_test.png' width = 800 height = 400 frameborder = 0> </iframe>
 
 With a p-value of 0.0, I will reject the null hypothesis. It is likely that our model is unfair, and has a higher r^2 score for predicting recipes that were submitted after 2009, compared to recipes published before 2009.  
 We can infer from the p-value of 0 that the model is significantly better at predicting average ratings for recipes that were published afer 2009. A possible reason for this could be due to the sentiment classifer I used being trained on tweets from 2012 to 2019. Perhaps internet "lingo" has changed overtime, and so the sentiment classifer was able to make more accurate predictions about the sentiment of the review comment for recipes created after 2009 than comments from before 2009.
