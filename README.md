@@ -210,14 +210,14 @@ In the baseline model, the Linear Regression model was only able to explain 0.3%
 #### Permutation Test Setup
 I will perform a permtuation test to determine if the model can predict the average ratings of recipes that were published before year 2009 as well the average rating of recipes published after year 2009.
 
-**Null Hypothesis**: Our model is fair. It's r^2 score for recipes published before and after 2009 are roughly the same, and any difference is due to random chance.
-**Alternative Hypothesis**: Our model is NOT fair. It's r^2 score is higher for recipes that were published after 2009 than the r^2 score for recipes published before 2009.
+**Null Hypothesis**: Our model is fair. It's r^2 score for recipes published before and after 2009 are roughly the same, and any difference is due to random chance.  
+**Alternative Hypothesis**: Our model is NOT fair. It's r^2 score is higher for recipes that were published after 2009 than the r^2 score for recipes published before 2009.  
 
-Cutoff date: 2009
-Groups: Recipes published before and after 2009
-Test statistic:  r^2 score for recipes after 2009 - r^2 score for recipes before 2009
-Significance leve: 0.05
-Observed Statistic: 0.1420083050836909
+Cutoff date: 2009  
+Groups: Recipes published before and after 2009  
+Test statistic:  r^2 score for recipes after 2009 - r^2 score for recipes before 2009  
+Significance leve: 0.05  
+Observed Statistic: 0.1420083050836909  
 
 #### Permutation Test Result
 
