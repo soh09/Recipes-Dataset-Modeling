@@ -66,8 +66,8 @@ To answer this question,
 After data cleaning, the two dataframe looks like this.
 
 ```python
-recipes.shape
->>> (9707, 13)
+>>> recipes.shape
+(9707, 13)
 ```
 ```python
 recipes.head(2)
@@ -78,8 +78,8 @@ recipes.head(2)
 | 453467 | 5       | ['15-minutes-or-less', | 2       | 11            | 94.7         |   0.0         |  70.0     |  0.0       |  2.0        |  0.0         |  7.0      |  4.800000   |[Love the anise and orange |
 
 ```python
-interactions.shape
->>> (375987, 3)
+>>> interactions.shape
+(375987, 3)
 ```
 ```python
 interactions.head(2)
