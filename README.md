@@ -49,7 +49,7 @@ RAW_interactions.csv contains `731927 rows` and `5 columns`. The rows represent 
 #### Can we predict the average rating of a recipe?
 
 To answer this question,
-1. I'll make a regression model
+1. I'll make a **regression** model
 2. This regression model will predict the average rating of a certain recipe, given a few features from the recipes and interactions dataset.
 3. This regression model will be evaluted using the **R^2** score. I chose this metric because R^2 is an easily interpretable metric that tells me the proportion (from 0.0 to 1.0) of variation in the data that the model is able to explain. 1.0 would means that model's predictions are identitcal to actual response variable. 
 
@@ -74,6 +74,7 @@ After data cleaning, the two dataframe looks like this.
 ```python
 >>> recipes.head(2)
 ```
+
 | id     | minutes | tags                   | n_steps | n_ingredients | calories (#) | total fat (%) | sugar (%) | sodium (%) | protein (%) | sat fats (%) | carbs (%) | rating      | review                    |
 |:-------|:--------|:-----------------------|:--------|:--------------|:-------------|:--------------|:----------|:-----------|:------------|:-------------|:----------|:------------|:--------------------------|
 | 333281 | 75      | ['time-to-make', 'cours| 6       | 9             | 1582.6	     |   88.0        |  402.0    |  27.0      |  96.0       |  156.0       |  73.0     |  4.400000   |[Loved it and will make    |
@@ -86,11 +87,14 @@ After data cleaning, the two dataframe looks like this.
 ```python
 >>> interactions.head(2)
 ```
+
 |   recipe_id |   rating | review                                                   |
 |------------:|---------:|:---------------------------------------------------------|
 |       79222 |        4 | Oh, how wonderful!  I doubled the crab, and added some   |
 |       79222 |        5 | Along with the onions we added in a square of salt pork, |
 |       79222 |        4 | I made this last nite and it was pretty good.  I will    |
+
+## The Baseline Model
 
 
 
