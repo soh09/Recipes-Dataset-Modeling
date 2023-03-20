@@ -63,6 +63,8 @@ To answer this question,
 - Interactions data
     1. Drop rows with nan in `review` column
 
+Much of the code used for this was from Part 1 of the project, which I have linked at the top.
+
 After data cleaning, the two dataframe looks like this.
 
 ```python
@@ -84,11 +86,11 @@ After data cleaning, the two dataframe looks like this.
 ```python
 >>> interactions.head(2)
 ```
-|    |   recipe_id |   rating | review                                                   |
-|---:|------------:|---------:|:---------------------------------------------------------|
-|  0 |       79222 |        4 | Oh, how wonderful!  I doubled the crab, and added some   |
-|  1 |       79222 |        5 | Along with the onions we added in a square of salt pork, |
-|  2 |       79222 |        4 | I made this last nite and it was pretty good.  I will    |
+|   recipe_id |   rating | review                                                   |
+|------------:|---------:|:---------------------------------------------------------|
+|       79222 |        4 | Oh, how wonderful!  I doubled the crab, and added some   |
+|       79222 |        5 | Along with the onions we added in a square of salt pork, |
+|       79222 |        4 | I made this last nite and it was pretty good.  I will    |
 
 
 
